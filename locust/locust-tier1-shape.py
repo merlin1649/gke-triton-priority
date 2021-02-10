@@ -11,14 +11,14 @@ class SineLoad(LoadTestShape):
     target_users   = 500
     sine_amplitude = 5   # percent
     sine_period    = 20  # seconds
-    time_limit       = 600 # seconds
+    time_limit      = 600 # seconds
 
     def tick(self):
         run_time = round(self.get_run_time())
 
         if run_time < self.time_limit:
-            theta = 2*pi*(run_time % sine_period)/sine_period
-            user_count = round(target_users*(sin(theta)*sine_amplitude/100 + 1))
+            theta = 2*pi*(run_time % self.sine_period)/self.sine_period
+            user_count = round(self.target_users*(sin(theta)*self.sine_amplitude/100 + 1))
             return (user_count,user_count)
         else:
             return None
