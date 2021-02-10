@@ -8,10 +8,10 @@ class SineLoad(LoadTestShape):
     """
     """
 
-    target_users   = 500
-    sine_amplitude = 5   # percent
-    sine_period    = 20  # seconds
-    time_limit      = 600 # seconds
+    target_users   = self.environment.target_users
+    sine_amplitude = self.environment.amplitude    # percent
+    sine_period    = self.environment.period       # seconds
+    time_limit     = self.environment.time_limit   # seconds
 
     def tick(self):
         run_time = round(self.get_run_time())
