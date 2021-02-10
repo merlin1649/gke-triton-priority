@@ -26,10 +26,18 @@ metadata:
 spec:
   type: {{ .Values.service.type }}
   ports:
-    - port: 9000
+    - port: 8000
       protocol: TCP
       targetPort: 8000
       name: http-inference-server
+    - port: 8001
+      protocol: TCP
+      targetPort: 8001
+      name: grpc-inference-server
+    - port: 8002
+      protocol: TCP
+      targetPort: 8002
+      name: metrics-inference-server
   selector:
     app: {{ template "triton-inference-server.name" . }}
     release: {{ .Release.Name }}
