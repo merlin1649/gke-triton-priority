@@ -16,7 +16,6 @@ class SineLoad(LoadTestShape):
 
     def tick(self):
         run_time = round(self.get_run_time())
-        current_step = 
 
         if run_time < self.time_limit:
             theta = 2*pi*(run_time % self.sine_period)/self.sine_period
