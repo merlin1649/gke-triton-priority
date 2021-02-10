@@ -4,5 +4,5 @@ metadata:
   name: triton-ingress
 spec:
   backend:
-    serviceName: triton-triton-inference-server # Name of the Service targeted by the Ingress
-    servicePort: 9000 # Should match the port used by the Service
+    serviceName: neg-triton-inference-server # Name of the Service targeted by the Ingress
+    servicePort: 8000 # Should match the port used by the Service
