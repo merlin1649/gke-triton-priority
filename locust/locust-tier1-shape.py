@@ -1,5 +1,6 @@
 import time
 from locust import HttpUser, task, between
+from locust import LoadTestShape
 import json
 import math
 
