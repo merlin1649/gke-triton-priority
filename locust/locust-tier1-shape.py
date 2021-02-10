@@ -9,9 +9,9 @@ class SineLoad(LoadTestShape):
     """
 
     target_users   = 400
-    step_users     = 20     # ramp users each step
+    step_users     = 5     # ramp users each step
     sine_amplitude = 5      # percent
-    sine_period    = 5     # seconds
+    sine_period    = 20     # seconds
     time_limit     = 1200   # seconds
 
     def tick(self):
