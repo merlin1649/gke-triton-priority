@@ -9,7 +9,7 @@ class SineLoad(LoadTestShape):
     """
 
     target_users   = 400
-    step_users     = 5     # ramp users each step
+    step_users     = 5      # ramp users each step
     sine_amplitude = 5      # percent
     sine_period    = 20     # seconds
     time_limit     = 1200   # seconds
@@ -23,7 +23,7 @@ class SineLoad(LoadTestShape):
                 round(self.target_users*(sin(theta)*self.sine_amplitude/100 + 1)),
                 self.step_users*run_time
             )
-            return (user_count,user_count)
+            return (user_count,self.step_users)
         else:
             return None
 
