@@ -8,7 +8,7 @@ class SineLoad(LoadTestShape):
     """
     """
 
-    target_users   = 400
+    target_users   = 500
     step_users     = 5      # ramp users each step
     sine_amplitude = 5      # percent
     sine_period    = 20     # seconds
