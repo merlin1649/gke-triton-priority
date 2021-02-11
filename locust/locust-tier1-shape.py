@@ -39,7 +39,7 @@ class TritonUser(HttpUser):
     def bert_tier1(self):
         response = self.client.post(self.url1, headers=self.headers, data=json.dumps(self.data))
 
-    @task(30)
+    @task
     def bert_tier1(self):
         response = self.client.post(self.url1, data=json.dumps(self.data))
     
