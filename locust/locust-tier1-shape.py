@@ -35,8 +35,8 @@ class SineLoad(LoadTestShape):
 class TritonUser(HttpUser):
     wait_time = between(1, 1)
 
-    @task
-    def bert_tier1(self):
+    @task(4)
+    def bert_tier1_disconnect(self):
         response = self.client.post(self.url1, headers=self.headers, data=json.dumps(self.data))
 
     @task
