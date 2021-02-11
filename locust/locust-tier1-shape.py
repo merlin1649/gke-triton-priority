@@ -32,7 +32,7 @@ class TritonUser(HttpUser):
 
     @task
     def bert_tier1(self):
-        response =self.client.post(self.url1, data=json.dumps(self.data))
+        response = self.client.post(self.url1, headers=headers, data=json.dumps(self.data))
 
     def on_start(self):
         with open('bert_request.json') as f:
@@ -41,4 +41,6 @@ class TritonUser(HttpUser):
         self.url1 = '{}/v2/models/{}/infer'.format(
             self.environment.host,
             'bert-tier1')
+
+        self.headers = {'Connection': 'close'}
 
