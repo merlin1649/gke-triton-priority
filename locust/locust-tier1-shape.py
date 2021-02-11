@@ -39,6 +39,11 @@ class TritonUser(HttpUser):
     def bert_tier1(self):
         response = self.client.post(self.url1, headers=self.headers, data=json.dumps(self.data))
 
+    @task(30)
+    def bert_tier1(self):
+        response = self.client.post(self.url1, data=json.dumps(self.data))
+    
+
     def on_start(self):
         with open('bert_request.json') as f:
             self.data = json.load(f)
