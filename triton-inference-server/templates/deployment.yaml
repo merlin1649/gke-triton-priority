@@ -14,41 +14,32 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ template "triton-inference-server.fullname" . }}
-  namespace: {{ .Release.Namespace }}
+  name: tritonserver
   labels:
-    app: {{ template "triton-inference-server.name" . }}
-    chart: {{ template "triton-inference-server.chart" . }}
-    release: {{ .Release.Name }}
-    heritage: {{ .Release.Service }}
+    name: tritonserver
 spec:
-  replicas: {{ .Values.replicaCount }}
+  replicas: 1
   selector:
     matchLabels:
-      app: {{ template "triton-inference-server.name" . }}
-      release: {{ .Release.Name }}
+      app: tritonserver
   template:
     metadata:
       labels:
-        app: {{ template "triton-inference-server.name" . }}
-        release: {{ .Release.Name }}
-
+        app: tritonserver
     spec:
       containers:
-        - name: {{ .Chart.Name }}
-          image: "{{ .Values.image.imageName }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
-
+        - name: tritonserver
+          image: nvcr.io/nvidia/tritonserver:20.09-py3
+          imagePullPolicy: IfNotPresent
           resources:
             limits:
-              nvidia.com/gpu: {{ .Values.image.numGpus }}
+              nvidia.com/gpu: 1
           env:
             - name: LD_PRELOAD
-              value: {{ .Values.image.ldPreloadPath }}
-          args: ["tritonserver", "--model-store={{ .Values.image.modelRepositoryPath }}",
-                 "--strict-model-config={{ .Values.image.strictModelConfig }}",
-                 "--log-verbose={{ .Values.image.logVerboseLevel }}"]
-
+              value: ''
+          args: ["tritonserver", "--model-store=gs://model-storage-27635/model_repository3/",
+                 "--strict-model-config=false",
+                 "--log-verbose=1"]
           ports:
             - containerPort: 8000
               name: http
@@ -60,20 +51,19 @@ spec:
             httpGet:
               path: /v2/health/live
               port: http
-            initialDelaySeconds: {{ .Values.deployment.livenessProbe.initialDelaySeconds }}
-            periodSeconds: {{ .Values.deployment.livenessProbe.periodSeconds }}
-            timeoutSeconds: {{ .Values.deployment.livenessProbe.timeoutSeconds }}
-            successThreshold: {{ .Values.deployment.livenessProbe.successThreshold }}
-            failureThreshold: {{ .Values.deployment.livenessProbe.failureThreshold }}
+            initialDelaySeconds: 100
+            periodSeconds: 5
+            timeoutSeconds: 1
+            successThreshold: 1
+            failureThreshold: 30
           readinessProbe:
             httpGet:
               path: /v2/health/ready
               port: http
-            initialDelaySeconds: {{ .Values.deployment.readinessProbe.initialDelaySeconds }}
-            periodSeconds: {{ .Values.deployment.readinessProbe.periodSeconds }}
-            timeoutSeconds: {{ .Values.deployment.readinessProbe.timeoutSeconds }}
-            successThreshold: {{ .Values.deployment.readinessProbe.successThreshold }}
-            failureThreshold: {{ .Values.deployment.readinessProbe.failureThreshold }}
-
+            initialDelaySeconds: 100
+            periodSeconds: 5
+            timeoutSeconds: 1
+            successThreshold: 1
+            failureThreshold: 30
           securityContext:
             runAsUser: 1000

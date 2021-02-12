@@ -17,7 +17,7 @@ metadata:
   name: {{ template "triton-inference-server.fullname" . }}
   namespace: {{ .Release.Namespace }}
   annotations:
-    cloud.google.com/neg: '{"ingress": true}'
+    networking.gke.io/load-balancer-type: "Internal"
   labels:
     app: {{ template "triton-inference-server.name" . }}
     chart: {{ template "triton-inference-server.chart" . }}
@@ -27,9 +27,14 @@ spec:
   type: {{ .Values.service.type }}
   ports:
     - port: 8000
-      protocol: TCP
-      targetPort: 8000
+      targetPort: http
       name: http-inference-server
+    - port: 8001
+      targetPort: grpc
+      name: grpc-inference-server
+    - port: 8002
+      targetPort: metrics
+      name: metrics-inference-server
   selector:
     app: {{ template "triton-inference-server.name" . }}
     release: {{ .Release.Name }}
