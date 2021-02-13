@@ -38,7 +38,7 @@ spec:
           env:
             - name: LD_PRELOAD
               value: ''
-          args: ["tritonserver", "--model-store=model-12345/model_repository/",
+          args: ["tritonserver", "--model-store=gs://MODEL_REPOSITORY_BUCKET/model_repository/",
                  "--strict-model-config=false",
                  "--log-verbose=1"]
           ports:
