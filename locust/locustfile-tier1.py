@@ -8,7 +8,7 @@ class SineLoad(LoadTestShape):
     """
     """
 
-    target_users   = 120
+    target_users   = 70
     step_users     = 5      # ramp users each step
     time_limit     = 3600   # seconds
 
