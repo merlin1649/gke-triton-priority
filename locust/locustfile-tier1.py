@@ -32,7 +32,7 @@ class TritonUser(HttpUser):
     def bert_disconnect(self):
         response = self.client.post(self.url1, headers=self.headers, data=json.dumps(self.data))
 
-    @task(3)
+    @task(7)
     def bert(self):
         response = self.client.post(self.url1, data=json.dumps(self.data))
     
