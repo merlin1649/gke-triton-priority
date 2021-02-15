@@ -4,7 +4,7 @@ from locust import LoadTestShape
 import json
 from math import sin, pi
 
-class SineLoad(LoadTestShape):
+class ProfileLoad(LoadTestShape):
     '''
     This load profile starts at 0 and steps up by step_users
     increments every tick, up to target_users.  After reaching
